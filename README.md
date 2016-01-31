@@ -1,31 +1,51 @@
-Website
-=======
+Site
+====
 
-A brief description of the role goes here.
+Generate website configurations for use with Nginx (soon others like Apache)
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Nginx (Apache soon)
+- Nginx and PHP optional
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- **site_domain**: example.com
+- **site_www**: false
+- **site_root**: public
+- **site_password**: false
+- **site_password_file**: false
+- **site_ssl**: false
+- **site_ssl_key**: false
+- **site_ssl_crt**: false
+- **site_websockets**: false
+- **site_redirects**: []
+- **site_php**: false
+- **site_nodejs**: false
+- **site_proxy_name**: nodejs
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- ryanlelek.nginx
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: web
+      become: yes
       roles:
-         - { role: username.rolename, x: 42 }
+        - ryanlelek.nginx
+        - role: ryanlelek.site
+          site_domain: yourdomain.com
+          site_root: test_files
+      # See Also: ryanlelek.git_repo
+      # That way you can pull files from a repository
+      tasks:
+        - name: Copy Site Files
+          copy: src=./test_files dest=/home/{{ ansible_ssh_user }} owner={{ ansible_ssh_user }} group=sudo mode=0755
 
 License
 -------
@@ -35,4 +55,5 @@ MIT
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Created by [Ryan Lelek](https://www.ryanlelek.com)  
+Part of [AnsibleTutorials.com](http://www.ansibletutorials.com)
