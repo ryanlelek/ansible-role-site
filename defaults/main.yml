@@ -9,7 +9,7 @@ site_ssl_key: false
 site_ssl_crt: false
 site_websockets: false
 site_redirects: []
-site_proxy_name: nodejs
 # nodejs, php, etc.
 site_proxy: false
 site_proxy_port: 3000
+site_proxy_name: myproxy

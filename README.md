@@ -22,9 +22,9 @@ Role Variables
 - **site_ssl_crt**: false
 - **site_websockets**: false
 - **site_redirects**: []
-- **site_proxy_name**: nodejs
 - **site_proxy**: false
 - **site_proxy_port**: 3000
+- **site_proxy_name**: myproxy
 
 Dependencies
 ------------
