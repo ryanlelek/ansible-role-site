@@ -1,7 +1,7 @@
 {% if site_proxy == "nodejs" %}
 
 upstream {{ site_proxy_name }} {
-  server 127.0.0.1:{{ site_proxy_port }} max_fails=0 fail_timeout=5s;
+  server {{ site_proxy_ip }}:{{ site_proxy_port }} max_fails=0 fail_timeout=5s;
   keepalive 256;
 }
 {% endif %}

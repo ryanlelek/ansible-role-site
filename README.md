@@ -23,8 +23,9 @@ Role Variables
 - **site_websockets**: false
 - **site_redirects**: []
 - **site_proxy**: false
-- **site_proxy_port**: 3000
 - **site_proxy_name**: myproxy
+- **site_proxy_ip**: 127.0.0.1
+- **site_proxy_port**: 3000
 
 Dependencies
 ------------
