@@ -24,6 +24,7 @@ Role Variables
 - **site_redirects**: []
 - **site_proxy_name**: nodejs
 - **site_proxy**: false
+- **site_proxy_port**: 3000
 
 Dependencies
 ------------
