@@ -9,6 +9,6 @@ site_ssl_key: false
 site_ssl_crt: false
 site_websockets: false
 site_redirects: []
-site_php: false
-site_nodejs: false
 site_proxy_name: nodejs
+# nodejs, php, etc.
+site_proxy: false

@@ -22,9 +22,8 @@ Role Variables
 - **site_ssl_crt**: false
 - **site_websockets**: false
 - **site_redirects**: []
-- **site_php**: false
-- **site_nodejs**: false
 - **site_proxy_name**: nodejs
+- **site_proxy**: false
 
 Dependencies
 ------------

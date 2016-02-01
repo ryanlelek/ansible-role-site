@@ -1,4 +1,4 @@
-{% if site_nodejs %}
+{% if site_proxy == "nodejs" %}
 
 upstream {{ site_proxy_name }} {
   server 127.0.0.1:3000 max_fails=0 fail_timeout=5s;
@@ -72,7 +72,7 @@ server {
 
   #root    /var/www/public;
   root     /home/{{ ansible_ssh_user }}/{{ site_root }};
-{% if site_php %}
+{% if site_proxy == "php" %}
   index    index.php index.html index.htm;
 {% else %}
   index    index.html index.htm;
@@ -117,9 +117,9 @@ server {
     rewrite     ^/(.+)\.$ /$1 permanent;
 
 # TODO: Remove index.html
-{% if site_nodejs %}
+{% if site_proxy == "nodejs" %}
     try_files   $uri $uri.html $uri/index.html @proxy;
-{% elif site_php %}
+{% elif site_proxy == "php" %}
     # $uri.php?q=$uri&$args&$query_string
     try_files   $uri $uri/ /index.php?$args;
 {% else %}
@@ -131,7 +131,7 @@ server {
 {% for redirect in site_redirects %}
   location = {{ redirect.from }} { return 301 {{ redirect.to }}; }
 {% endfor %}
-{% if site_php %}
+{% if site_proxy == "php" %}
 
   location ~ \.php$ {
     try_files $uri =404;
@@ -142,7 +142,7 @@ server {
     include fastcgi_params;
   }
 {% endif %}
-{% if site_nodejs %}
+{% if site_proxy == "nodejs" %}
 
   # Pass to Node.js
   location @proxy {
