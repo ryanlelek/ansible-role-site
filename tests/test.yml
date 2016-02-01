@@ -7,6 +7,7 @@
     - role: ../../
       site_domain: localhost.com
       site_root: test_files
+      site_proxy: nodejs
   tasks:
     - name: Copy Site Files
       copy: src=./test_files dest=/home/{{ ansible_ssh_user }} owner={{ ansible_ssh_user }} group=sudo mode=0755

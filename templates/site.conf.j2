@@ -146,7 +146,7 @@ server {
 
   # Pass to Node.js
   location @proxy {
-    proxy_pass        http://nodejs;
+    proxy_pass        http://{{ site_proxy_name }};
     proxy_redirect    off;
     proxy_set_header  Host $host;
     proxy_set_header  X-Real-IP $remote_addr;
@@ -157,7 +157,7 @@ server {
 
   # WebSockets
   location /socket.io/ {
-    proxy_pass         http://nodejs;
+    proxy_pass         http://{{ site_proxy_name }};
     proxy_redirect     off;
     proxy_set_header   Host $host;
     proxy_set_header   X-Real-IP $remote_addr;
