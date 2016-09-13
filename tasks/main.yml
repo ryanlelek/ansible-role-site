@@ -28,6 +28,16 @@
   when: site_ssl
   notify: Reload Nginx
 
+- name: Ensure Unique Diffie-Hellman Generated
+  command: openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048 creates=/etc/nginx/ssl/dhparam.pem
+  when: site_ssl
+  notify: Reload Nginx
+
+- name: Ensure Unique Diffie-Hellman Ownership
+  file: path=/etc/nginx/ssl/dhparam.pem owner=root group=root mode=0644
+  when: site_ssl
+  notify: Reload Nginx
+
 - name: Ensure Nginx SSL Directory (Domain)
   file: path=/etc/nginx/ssl/{{ site_domain }} state=directory owner=root group=root mode=0755
   become: yes
