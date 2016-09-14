@@ -1,4 +1,4 @@
-Site
+Site (v2.0.1)
 ====
 
 Generate website configurations for use with Nginx (soon others like Apache)
