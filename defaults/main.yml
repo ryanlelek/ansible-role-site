@@ -1,10 +1,10 @@
 ---
+site_mode: http
 site_domain: example.com
-site_www: false
+site_redirect: false
 site_root: public
 site_password: false
 site_password_file: false
-site_ssl: false
 site_ssl_key: false
 site_ssl_crt: false
 site_websockets: false

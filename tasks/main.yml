@@ -5,7 +5,7 @@
 ##########################
 
 - name: Ensure Nginx Site Configuration
-  template: src=site.conf.j2 dest=/etc/nginx/conf.d/{{ site_domain }}.conf owner=root group=root mode=0644
+  template: src=site.conf.j2 dest=/etc/nginx/conf.d/{{ site_domain }}.{{ site_mode }}.conf owner=root group=root mode=0644
   become: yes
   notify: Reload Nginx
 
@@ -25,33 +25,33 @@
 - name: Ensure Nginx SSL Directory (Nginx)
   file: path=/etc/nginx/ssl state=directory owner=root group=root mode=0755
   become: yes
-  when: site_ssl
+  when: 'site_mode == "https"'
   notify: Reload Nginx
 
 - name: Ensure Unique Diffie-Hellman Generated
   command: openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048 creates=/etc/nginx/ssl/dhparam.pem
-  when: site_ssl
+  when: 'site_mode == "https"'
   notify: Reload Nginx
 
 - name: Ensure Unique Diffie-Hellman Ownership
   file: path=/etc/nginx/ssl/dhparam.pem owner=root group=root mode=0644
-  when: site_ssl
+  when: 'site_mode == "https"'
   notify: Reload Nginx
 
 - name: Ensure Nginx SSL Directory (Domain)
   file: path=/etc/nginx/ssl/{{ site_domain }} state=directory owner=root group=root mode=0755
   become: yes
-  when: site_ssl
+  when: 'site_mode == "https"'
   notify: Reload Nginx
 
 - name: Copy SSL Key
   copy: src={{ site_ssl_key }} dest=/etc/nginx/ssl/{{ site_domain }}/{{ site_domain }}.key owner=root group=root mode=0600
   become: yes
-  when: site_ssl
+  when: 'site_mode == "https"'
   notify: Reload Nginx
 
 - name: Copy SSL Certificate
   copy: src={{ site_ssl_crt }} dest=/etc/nginx/ssl/{{ site_domain }}/{{ site_domain }}.crt owner=root group=root mode=0600
   become: yes
-  when: site_ssl
+  when: 'site_mode == "https"'
   notify: Reload Nginx

@@ -12,12 +12,12 @@ Requirements
 Role Variables
 --------------
 
+- **site_mode**: http
 - **site_domain**: example.com
-- **site_www**: false
+- **site_redirect**: false
 - **site_root**: public
 - **site_password**: false
 - **site_password_file**: false
-- **site_ssl**: false
 - **site_ssl_key**: false
 - **site_ssl_crt**: false
 - **site_websockets**: false
@@ -39,9 +39,21 @@ Example Playbook
       become: yes
       roles:
         - ryanlelek.nginx
+
+        # Redirect Snooping Visitors
+        # Who found us by IP
         - role: ryanlelek.site
-          site_domain: yourdomain.com
+          site_domain: default
+          redirect: https://www.google.com
+
+        # HTTPS Site
+        - role: ryanlelek.site
+          site_domain: www.yourdomain.com
+          site_mode: https
+          site_ssl_key: ./path_to_rsa.key
+          site_ssl_crt: ./path_to_rsa.crt
           site_root: test_files
+
       # See Also: ryanlelek.git_repo
       # That way you can pull files from a repository
       tasks:

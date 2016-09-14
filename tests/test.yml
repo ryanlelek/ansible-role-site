@@ -1,13 +1,23 @@
 ---
-
 - hosts: all
   become: yes
   roles:
     - ryanlelek.nginx
+
+    # Default Redirect
     - role: ../../
-      site_domain: localhost.com
+      site_domain: default
+      site_redirect: http://www.ansibletutorials.com
+
+    # Actual Site
+    - role: ../../
+      site_domain: local.example.com
       site_root: test_files
-      site_proxy: nodejs
+
   tasks:
+
+    - name: Bypass DNS
+      lineinfile: dest=/etc/hosts line="127.0.0.1  local.example.com" state=present
+
     - name: Copy Site Files
       copy: src=./test_files dest=/home/{{ ansible_ssh_user }} owner={{ ansible_ssh_user }} group=sudo mode=0755
